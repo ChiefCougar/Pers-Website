@@ -1,0 +1,59 @@
+name: Build and Push Docker Image to GHCR
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  GHCR_USERNAME: ${{ github.actor }}
+  GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Extract repository name and set image name
+        id: convert-repo-name
+        run: |
+          # github.repository is "owner/repo" -> extract repo and lowercase it for image name
+          REPO_FULL="${{ github.repository }}"
+          REPO_ONLY="${REPO_FULL##*/}"
+          IMAGE_NAME=$(echo "$REPO_ONLY" | tr '[:upper:]' '[:lower:]')
+          echo "IMAGE_NAME=$IMAGE_NAME" >> $GITHUB_ENV
+          # also export repository owner (lowercased)
+          REPO_OWNER_RAW="${REPO_FULL%%/*}"
+          REPO_OWNER=$(echo "$REPO_OWNER_RAW" | tr '[:upper:]' '[:lower:]')
+          echo "REPO_OWNER=$REPO_OWNER" >> $GITHUB_ENV
+
+      - name: Set GitHub Username (owner)
+        run: echo "GH_USERNAME=${{ github.repository_owner }}" >> $GITHUB_ENV
+        
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        with:
+          install: true
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ env.GHCR_USERNAME }}
+          password: ${{ env.GHCR_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          platforms: linux/amd64,linux/arm64,linux/arm/v7
+          tags: |
+            ghcr.io/${{ env.REPO_OWNER }}/${{ env.IMAGE_NAME }}:latest
+            ghcr.io/${{ env.REPO_OWNER }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
