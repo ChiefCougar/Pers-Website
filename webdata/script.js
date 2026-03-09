@@ -12,18 +12,55 @@ document.addEventListener('DOMContentLoaded', () => {
   const columns = canvas.width / fontSize;
   const rows = Math.ceil(canvas.height / fontSize);
   const drops = Array(Math.floor(columns)).fill(0).map(() => Math.random() * rows);
+  
+  // Trail system for fading characters
+  const trails = [];
+  const TRAIL_DURATION = 10000; // 10 seconds in milliseconds
 
   function drawMatrix() {
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.01)';
+    // Clear canvas completely for fresh start
+    ctx.fillStyle = 'rgba(0, 0, 0, 1)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    ctx.fillStyle = '#f900c3';
+    const currentTime = Date.now();
+
+    // Draw trails with fading effect
+    trails.forEach((trail, index) => {
+      const age = currentTime - trail.timestamp;
+      const opacity = Math.max(0, 1 - (age / TRAIL_DURATION));
+      
+      if (opacity <= 0) {
+        trails.splice(index, 1);
+        return;
+      }
+
+      ctx.fillStyle = `rgba(255, 59, 214, ${opacity * 0.8})`;
+      ctx.font = `${fontSize}px monospace`;
+      ctx.globalAlpha = opacity;
+      ctx.fillText(trail.char, trail.x, trail.y);
+    });
+
+    // Reset global alpha for new characters
+    ctx.globalAlpha = 1;
+
+    // Draw new falling characters and add to trails
+    ctx.fillStyle = '#ff3bd6';
     ctx.font = `${fontSize}px monospace`;
-    ctx.globalAlpha = 0.65;
 
     for (let i = 0; i < drops.length; i++) {
       const char = charArray[Math.floor(Math.random() * charArray.length)];
-      ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+      const x = i * fontSize;
+      const y = drops[i] * fontSize;
+      
+      ctx.fillText(char, x, y);
+      
+      // Add to trails
+      trails.push({
+        char: char,
+        x: x,
+        y: y,
+        timestamp: currentTime
+      });
 
       if (drops[i] * fontSize > canvas.height && Math.random() > 0.97) {
         drops[i] = 0;

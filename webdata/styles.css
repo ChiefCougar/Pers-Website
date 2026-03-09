@@ -66,7 +66,7 @@ h2 {
 
 h3 {
   font-size: 1.3rem;
-  color: var(--text-primary);
+  color: var(--neon-blue);
 }
 
 h4 {
@@ -86,7 +86,7 @@ a {
 }
 
 a:hover {
-  color: var(--neon-magenta);
+  color: var(--neon-blue);
 }
 
 /* Navigation */
@@ -118,7 +118,7 @@ a:hover {
 }
 
 .logo {
-  background: linear-gradient(135deg, var(--neon-magenta), var(--neon-blue));
+  background: linear-gradient(135deg, var(--neon-blue), var(--neon-blue));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -146,7 +146,7 @@ a:hover {
   left: 0;
   width: 0;
   height: 2px;
-  background: linear-gradient(90deg, var(--neon-blue), var(--neon-magenta));
+  background: linear-gradient(90deg, var(--neon-blue), var(--neon-blue));
   transition: width 0.3s ease;
 }
 
@@ -243,7 +243,7 @@ a:hover {
 .hero-title {
   font-size: 4rem;
   margin-bottom: 1rem;
-  background: linear-gradient(90deg, var(--neon-magenta), var(--neon-blue), var(--neon-magenta));
+  background: linear-gradient(90deg, var(--neon-blue), var(--neon-magenta), var(--neon-blue));
   background-size: 200% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -261,7 +261,7 @@ a:hover {
   left: -2px;
   right: -2px;
   bottom: -2px;
-  background: linear-gradient(90deg, var(--neon-magenta), var(--neon-blue), var(--neon-magenta));
+  background: linear-gradient(90deg, var(--neon-blue), var(--neon-magenta), var(--neon-blue));
   background-size: 200% 100%;
   border-radius: 6px;
   z-index: -1;
@@ -344,7 +344,7 @@ a:hover {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--neon-magenta), var(--neon-blue));
+  background: linear-gradient(135deg, var(--neon-blue), var(--neon-magenta));
   color: var(--dark-bg);
   box-shadow: 0 8px 25px rgba(255, 59, 214, 0.3);
 }
@@ -362,8 +362,8 @@ a:hover {
 
 .btn-secondary:hover {
   background: rgba(15, 246, 255, 0.1);
-  border-color: var(--neon-magenta);
-  color: var(--neon-magenta);
+  border-color: var(--neon-blue);
+  color: var(--neon-blue);
   transform: translateY(-3px);
 }
 
@@ -468,7 +468,7 @@ a:hover {
 }
 
 .about-item h3 {
-  color: var(--neon-magenta);
+  color: var(--neon-blue);
   margin-bottom: 1rem;
 }
 
@@ -508,11 +508,12 @@ a:hover {
 
 .skill-card h4 {
   margin-bottom: 0.5rem;
+  color: var(--neon-blue);
 }
 
 .skill-card p {
   font-size: 0.9rem;
-  color: var(--text-tertiary);
+  color: var(--neon-blue);
 }
 
 .projects {
@@ -555,7 +556,7 @@ a:hover {
 
 .tech-stack {
   font-size: 0.8rem;
-  color: var(--text-tertiary);
+  color: var(--neon-blue);
   font-family: 'Space Mono', monospace;
   letter-spacing: 0.5px;
 }
@@ -571,7 +572,7 @@ a:hover {
 }
 
 .project-link:hover {
-  color: var(--neon-magenta);
+  color: var(--neon-blue);
   gap: 0.8rem;
   transform: translateY(-2px);
 }
@@ -611,7 +612,7 @@ a:hover {
   transform: translateX(-50%);
   width: 2px;
   height: 100%;
-  background: linear-gradient(180deg, var(--neon-blue), var(--neon-magenta));
+  background: linear-gradient(180deg, var(--neon-blue), var(--neon-blue));
   top: 0;
 }
 
@@ -656,7 +657,7 @@ a:hover {
 }
 
 .timeline-item:hover .timeline-marker {
-  border-color: var(--neon-magenta);
+  border-color: var(--neon-blue);
   background: linear-gradient(135deg, rgba(255, 59, 214, 0.15), rgba(15, 246, 255, 0.1));
   transform: scale(1.1);
   box-shadow: 0 8px 25px rgba(15, 246, 255, 0.2);
@@ -687,7 +688,7 @@ a:hover {
 }
 
 .timeline-link {
-  color: var(--neon-magenta);
+  color: var(--neon-blue);
   font-weight: 600;
   transition: all 0.3s ease;
   display: inline-block;
